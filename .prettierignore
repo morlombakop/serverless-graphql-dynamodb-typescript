@@ -1,0 +1,6 @@
+node_modules
+coverage
+public
+.vscode
+package.json
+bin

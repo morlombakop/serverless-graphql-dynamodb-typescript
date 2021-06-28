@@ -1,15 +1,16 @@
-import "reflect-metadata";
-import { ApolloServer } from "apollo-server-lambda";
-import { buildSchema } from "type-graphql";
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import 'reflect-metadata';
+import { ApolloServer } from 'apollo-server-lambda';
+import { buildSchema } from 'type-graphql';
 import {
   Context,
   APIGatewayProxyEvent,
   Callback,
   APIGatewayProxyResult,
-} from "aws-lambda";
+} from 'aws-lambda';
 
-import { ManufacturerResolver } from "./resolvers/manufacturer.resolver";
-import { VehicleResolver } from "./resolvers/vehicle.resolver";
+import { ManufacturerResolver } from './resolvers/manufacturer.resolver';
+import { VehicleResolver } from './resolvers/vehicle.resolver';
 
 async function bootstrap(
   event: APIGatewayProxyEvent,
@@ -18,15 +19,15 @@ async function bootstrap(
 ) {
   const schema = await buildSchema({
     resolvers: [ManufacturerResolver, VehicleResolver],
-    dateScalarMode: "isoDate",
+    dateScalarMode: 'isoDate',
   });
 
   const server = new ApolloServer({
     schema,
     playground: {
       settings: {
-        "schema.polling.enable": false,
-      }
+        'schema.polling.enable': false,
+      },
     },
     debug: false,
   });

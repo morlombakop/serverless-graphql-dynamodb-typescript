@@ -1,16 +1,25 @@
-import { ObjectType, Field, ID, registerEnumType, InputType } from "type-graphql";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable max-classes-per-file */
+import {
+  ObjectType,
+  Field,
+  ID,
+  registerEnumType,
+  InputType,
+} from 'type-graphql';
 
+// eslint-disable-next-line no-shadow
 enum Manufacturer {
-  Audi = "Audi",
-  BMW = "BMW",
-  VW = "VW",
-  Mercedes = "Mercedes",
-  Porsche = "Porsche",
+  Audi = 'Audi',
+  BMW = 'BMW',
+  VW = 'VW',
+  Mercedes = 'Mercedes',
+  Porsche = 'Porsche',
 }
 
 registerEnumType(Manufacturer, {
-  name: "Manufacturer",
-  description: "Available list of manufacturers name"
+  name: 'Manufacturer',
+  description: 'Available list of manufacturers name',
 });
 
 @InputType()

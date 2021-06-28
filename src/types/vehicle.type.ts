@@ -1,3 +1,6 @@
+/* eslint-disable no-shadow */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable max-classes-per-file */
 import {
   ObjectType,
   Field,
@@ -5,49 +8,49 @@ import {
   Int,
   InputType,
   registerEnumType,
-} from "type-graphql";
-import { IsInt, Min } from "class-validator";
+} from 'type-graphql';
+import { IsInt, Min } from 'class-validator';
 
-import { ManufacturerInput, ManufacturerType } from "./manufacturer.type";
+import { ManufacturerInput, ManufacturerType } from './manufacturer.type';
 
 enum Fuel {
-  Petrol = "Petrol",
-  Diesel = "Diesel",
-  Electric = "Electric",
-  PLG = "LPG",
-  Hybrid = "Hybrid",
+  Petrol = 'Petrol',
+  Diesel = 'Diesel',
+  Electric = 'Electric',
+  PLG = 'LPG',
+  Hybrid = 'Hybrid',
 }
 
 enum Vehicle {
-  Cabriolet = "Cabriolet",
-  Coupe = "Coupe",
-  EstateCar = "Estate car",
-  SUV = "SUV",
-  Saloon = "Saloon",
-  Van = "Van",
-  SmallCar = "Small car",
-  Other = "Other",
+  Cabriolet = 'Cabriolet',
+  Coupe = 'Coupe',
+  EstateCar = 'Estate car',
+  SUV = 'SUV',
+  Saloon = 'Saloon',
+  Van = 'Van',
+  SmallCar = 'Small car',
+  Other = 'Other',
 }
 
 enum Transmission {
-  ManualGearbox = "Manual gearbox",
-  SemiAutomatic = "Semi-automatic",
-  AutomaticTransmission = "Automatic transmission",
+  ManualGearbox = 'Manual gearbox',
+  SemiAutomatic = 'Semi-automatic',
+  AutomaticTransmission = 'Automatic transmission',
 }
 
 registerEnumType(Transmission, {
-  name: "Transmission",
-  description: "Available list of transmissions name",
+  name: 'Transmission',
+  description: 'Available list of transmissions name',
 });
 
 registerEnumType(Vehicle, {
-  name: "Vehicle",
-  description: "Available list of vehicle type name",
+  name: 'Vehicle',
+  description: 'Available list of vehicle type name',
 });
 
 registerEnumType(Fuel, {
-  name: "Fuel",
-  description: "Available list of fuel type name",
+  name: 'Fuel',
+  description: 'Available list of fuel type name',
 });
 
 @ObjectType()
@@ -101,4 +104,3 @@ export class VehicleInput {
   @Field((type) => ManufacturerInput)
   manufacturer: ManufacturerInput;
 }
-

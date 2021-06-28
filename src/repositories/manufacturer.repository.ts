@@ -1,8 +1,8 @@
-import { ApolloError } from "apollo-server-lambda";
-import { v4 as uuidv4 } from "uuid";
+import { ApolloError } from 'apollo-server-lambda';
+import { v4 as uuidv4 } from 'uuid';
 
-import { CreateManufacturerInput } from "../types/manufacturer.type";
-import { dynamodb, promisify } from "./helpers";
+import { CreateManufacturerInput } from '../types/manufacturer.type';
+import { dynamodb, promisify } from './helpers';
 
 const TableName = process.env.MANUFACTURER_TABLE;
 
@@ -12,14 +12,14 @@ export const isExistingManufacturer = (
   const { name, modelName } = manufacturer;
   const params = {
     TableName,
-    ProjectionExpression: "#name, modelName, id",
-    FilterExpression: "#name = :name AND modelName = :modelName",
+    ProjectionExpression: '#name, modelName, id',
+    FilterExpression: '#name = :name AND modelName = :modelName',
     ExpressionAttributeNames: {
-      "#name": "name",
+      '#name': 'name',
     },
     ExpressionAttributeValues: {
-      ":name": name,
-      ":modelName": modelName,
+      ':name': name,
+      ':modelName': modelName,
     },
   };
   return promisify((callback) => dynamodb.scan(params, callback)).then(
@@ -36,8 +36,8 @@ export const createManufacturer = async (
   const isExist = await isExistingManufacturer(manufacturer);
   if (isExist) {
     throw new ApolloError(
-      "Duplicated manufacturer object. It already exist",
-      "409"
+      'Duplicated manufacturer object. It already exist',
+      '409'
     );
   } else {
     const params = {
@@ -55,7 +55,7 @@ export const createManufacturer = async (
 
 export const getAllManufacturers = () =>
   promisify((callback) => {
-    const params = { TableName, Select: "ALL_ATTRIBUTES" };
+    const params = { TableName, Select: 'ALL_ATTRIBUTES' };
     return dynamodb.scan(params, callback);
   }).then((data) => {
     // @ts-ignore
@@ -77,7 +77,7 @@ export const getManufacturer = (id: string) =>
     } else {
       throw new ApolloError(
         `a manufacturer with the id: ${id} does not exist`,
-        "404"
+        '404'
       );
     }
   });

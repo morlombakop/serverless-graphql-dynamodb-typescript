@@ -1,14 +1,15 @@
-import { Resolver, Query, Mutation, Arg } from "type-graphql";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import {
   createManufacturer,
   getAllManufacturers,
   isExistingManufacturer,
   getManufacturer,
-} from "../repositories/manufacturer.repository";
+} from '../repositories/manufacturer.repository';
 import {
   CreateManufacturerInput,
   ManufacturerType,
-} from "../types/manufacturer.type";
+} from '../types/manufacturer.type';
 
 @Resolver()
 export class ManufacturerResolver {
@@ -18,19 +19,19 @@ export class ManufacturerResolver {
   }
 
   @Query((returns) => ManufacturerType)
-  async manufacturer(@Arg("id", (type) => String) id: string) {
+  async manufacturer(@Arg('id', (type) => String) id: string) {
     return await getManufacturer(id);
   }
 
   @Mutation((returns) => ManufacturerType)
   async addManufacturer(
-    @Arg("manufacturer") manufacturer: CreateManufacturerInput
+    @Arg('manufacturer') manufacturer: CreateManufacturerInput
   ) {
     return await createManufacturer(manufacturer);
   }
 
   @Query((returns) => Boolean)
-  async exist(@Arg("manufacturer") manufacturer: CreateManufacturerInput) {
+  async exist(@Arg('manufacturer') manufacturer: CreateManufacturerInput) {
     return await isExistingManufacturer(manufacturer);
   }
 }
