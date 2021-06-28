@@ -85,7 +85,7 @@ export class VehicleType {
 }
 
 @InputType()
-export class CreateVehicleInput {
+export class VehicleInput {
   @Field()
   color: string;
   @Field((type) => Int)
@@ -102,20 +102,3 @@ export class CreateVehicleInput {
   manufacturer: ManufacturerInput;
 }
 
-@InputType()
-export class EditVehicleInput {
-  @Field({ nullable: true })
-  color?: string;
-  @Field((type) => Int, { nullable: true })
-  @IsInt()
-  @Min(0)
-  mileage?: number;
-  @Field((type) => Fuel, { nullable: true })
-  fuelType?: Fuel;
-  @Field((type) => Vehicle, { nullable: true })
-  vehicleType?: Vehicle;
-  @Field((type) => Transmission, { nullable: true })
-  transmission?: Transmission;
-  @Field((type) => ManufacturerInput, { nullable: true })
-  manufacturer?: ManufacturerInput;
-}

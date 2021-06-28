@@ -5,6 +5,7 @@
   "scripts": {
     "test": "jest --no-cache",
     "start": "npm run build && serverless offline start",
+    "install:db": "serverless dynamodb install",
     "build:ts": "tsc",
     "build": "npm run clean:dist && npm run build:ts",
     "clean:dist": "rimraf dist"

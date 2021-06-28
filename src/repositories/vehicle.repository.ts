@@ -2,7 +2,7 @@ import { ApolloError } from "apollo-server-lambda";
 import { v4 as uuidv4 } from "uuid";
 import isEmpty from "lodash/isEmpty";
 
-import { CreateVehicleInput } from "../types/vehicle.type";
+import { VehicleInput } from "../types/vehicle.type";
 import { getManufacturer } from "./manufacturer.repository";
 import { dynamodb, promisify } from "./helpers";
 import { ManufacturerInput } from "src/types/manufacturer.type";
@@ -42,7 +42,7 @@ const isEqualItem = (a: ManufacturerInput, b: ManufacturerInput) => {
   return a.id === b.id && a.modelName === b.modelName && a.name === b.name;
 };
 
-export const createVehicle = async (vehicle: CreateVehicleInput) => {
+export const createVehicle = async (vehicle: VehicleInput) => {
   const manufacturer = await getManufacturer(vehicle.manufacturer.id);
   if (!isEqualItem(manufacturer, vehicle.manufacturer)) {
     throw new ApolloError(
@@ -77,7 +77,7 @@ export const deleteVehicle = (id: string): Promise<boolean> =>
 
 export const updateVehicle = async (
   id: string,
-  vehicle: CreateVehicleInput
+  vehicle: VehicleInput
 ) => {
   const manufacturer = await getManufacturer(vehicle.manufacturer.id);
   if (!isEqualItem(manufacturer, vehicle.manufacturer)) {

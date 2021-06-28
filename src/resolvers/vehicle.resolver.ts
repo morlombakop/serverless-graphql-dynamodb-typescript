@@ -1,4 +1,5 @@
 import { Resolver, Query, Mutation, Arg } from "type-graphql";
+
 import {
   getAllVehicles,
   createVehicle,
@@ -6,8 +7,7 @@ import {
   deleteVehicle,
   updateVehicle,
 } from "../repositories/vehicle.repository";
-
-import { CreateVehicleInput, VehicleType } from "../types/vehicle.type";
+import { VehicleInput, VehicleType } from "../types/vehicle.type";
 
 @Resolver()
 export class VehicleResolver {
@@ -22,7 +22,7 @@ export class VehicleResolver {
   }
 
   @Mutation((returns) => VehicleType)
-  async addVehicle(@Arg("vehicle") vehicle: CreateVehicleInput) {
+  async addVehicle(@Arg("vehicle") vehicle: VehicleInput) {
     return await createVehicle(vehicle);
   }
 
@@ -34,7 +34,7 @@ export class VehicleResolver {
   @Mutation((returns) => VehicleType)
   async editVehicle(
     @Arg("id", (type) => String) id: string,
-    @Arg("vehicle") vehicle: CreateVehicleInput
+    @Arg("vehicle") vehicle: VehicleInput
   ) {
     return await updateVehicle(id, vehicle);
   }
