@@ -1,0 +1,60 @@
+service: serverless-graphql-dynamodb-typescript
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+    # Comment if you have a DynamoDB running locally
+      noStart: false
+    migration:
+      dir: offline/migrations
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  environment:
+    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+
+functions:
+  graphql:
+    handler: dist/handler.graphql
+    events:
+      - http:
+          path: graphql
+          method: ANY
+          cors: true
+
+resources:
+  Resources:
+    InstaMotionDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
