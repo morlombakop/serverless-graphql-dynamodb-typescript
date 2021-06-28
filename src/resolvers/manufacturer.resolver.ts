@@ -29,7 +29,7 @@ export class ManufacturerResolver {
     return await createManufacturer(manufacturer);
   }
 
-  @Mutation((returns) => Boolean)
+  @Query((returns) => Boolean)
   async exist(@Arg("manufacturer") manufacturer: CreateManufacturerInput) {
     return await isExistingManufacturer(manufacturer);
   }

@@ -21,7 +21,8 @@ provider:
   name: aws
   runtime: nodejs12.x
   environment:
-    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    MANUFACTURER_TABLE: '${self:service}-${opt:stage, self:provider.stage}-manufacturer'
+    VEHICLE_TABLE: '${self:service}-${opt:stage, self:provider.stage}-vehicle'
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -31,7 +32,9 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+      Resource: 
+        - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.MANUFACTURER_TABLE}"
+        - "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.VEHICLE_TABLE}"
 
 functions:
   graphql:
@@ -44,7 +47,7 @@ functions:
 
 resources:
   Resources:
-    InstaMotionDynamoDbTable:
+    ManufacturerTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
@@ -57,4 +60,19 @@ resources:
             AttributeName: id
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+        TableName: ${self:provider.environment.MANUFACTURER_TABLE}
+
+    VehicleTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:provider.environment.VEHICLE_TABLE}

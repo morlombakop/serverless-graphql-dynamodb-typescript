@@ -8,7 +8,8 @@ import {
   APIGatewayProxyResult,
 } from "aws-lambda";
 
-import { ManufacturerResolver } from "./resolvers/manufacturer-resolver";
+import { ManufacturerResolver } from "./resolvers/manufacturer.resolver";
+import { VehicleResolver } from "./resolvers/vehicle.resolver";
 
 async function bootstrap(
   event: APIGatewayProxyEvent,
@@ -16,14 +17,17 @@ async function bootstrap(
   callback: Callback<APIGatewayProxyResult>
 ) {
   const schema = await buildSchema({
-    resolvers: [ManufacturerResolver],
+    resolvers: [ManufacturerResolver, VehicleResolver],
     dateScalarMode: "isoDate",
   });
 
   const server = new ApolloServer({
     schema,
-    playground: true,
-    introspection: true,
+    playground: {
+      settings: {
+        "schema.polling.enable": false,
+      }
+    },
     debug: false,
   });
 
