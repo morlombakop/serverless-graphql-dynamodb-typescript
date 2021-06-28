@@ -1,6 +1,6 @@
 # Serverless GraphQL API with DynamoDB, Typescript and offline support
 
-Hello, I have chosen to take te backend challenge although my latests experiences are in the front-end. The main reason is I'm looking to strengthen my backend skills and Serverless is somehow appetizing :)
+Hello, I have chosen to take the backend challenge although my latest experiences are in the front-end. The main reason is I'm looking to strengthen my backend skills and Serverless is somehow appetizing :)
 
 ## Setup
 

@@ -1,5 +1,5 @@
-describe("fake function", () => {
-  it("should return false", () => {
-    expect(1+1).toBe(2);
+describe('manufacturer api', () => {
+  it('fake test', () => {
+    expect(1 + 1).toBe(2);
   });
 });
