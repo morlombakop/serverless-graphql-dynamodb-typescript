@@ -6,9 +6,16 @@ Hello, I have chosen to take the backend challenge although my latest experience
 
 ```bash
 npm install
-npm run install:db this will download a local version of DynamoDB. (or to use a persistent docker dynamodb instead, open a new terminal: cd ./dynamodb && docker-compose up -d)
+`npm run install:db` this will download a local version of DynamoDB. (or to use a persistent docker dynamodb instead, open a new terminal: cd ./dynamodb && docker-compose up -d)
 npm start to transpile and lunch thr application. Please ensure you only have a single instance of DynamoDB at the port 8000.
 Once the app has started go to `http://localhost:3000/dev/graphql` to Use with a GraphQL Playground. Ensure the URL used in the playground is `http://localhost:3000/dev/graphql`.
+```
+
+## Test
+
+```bash
+Stop and restart the app locally  with local version DynamoDb. You can run `npm run install:db` to install it if you have not yet installed
+run `npm test`.
 ```
 
 ## Usage

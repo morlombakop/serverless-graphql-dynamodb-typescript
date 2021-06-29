@@ -2,7 +2,11 @@
   "include": [
     "src/**/*"
   ],
-  "compilerOptions": {                        
+  "exclude": [
+    "node_modules",
+    "src/tests/**"
+  ],
+  "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
     "pretty": true,
